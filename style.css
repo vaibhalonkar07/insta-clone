@@ -1,0 +1,424 @@
+/* style.css — Instagram Login Page */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ig-blue: #0095f6;
+  --ig-blue-hover: #1877f2;
+  --ig-border: #dbdbdb;
+  --ig-bg: #fafafa;
+  --ig-text: #262626;
+  --ig-muted: #8e8e8e;
+  --ig-error: #ed4956;
+  --ig-success: #00ba7c;
+  --ig-fb: #385185;
+  --card-bg: #ffffff;
+  --radius: 4px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--ig-bg);
+  color: var(--ig-text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* ── Background orbs ───────────────────────────────────── */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: #833ab4; top: -100px; left: -100px; }
+.orb-2 { width: 400px; height: 400px; background: #fd1d1d; bottom: -100px; right: 100px; animation-delay: -3s; }
+.orb-3 { width: 300px; height: 300px; background: #fcb045; top: 50%; left: 50%; animation-delay: -6s; }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ── Page layout ───────────────────────────────────────── */
+.page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 935px;
+  padding: 32px 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Phone mockup ──────────────────────────────────────── */
+.phone-section { display: flex; align-items: center; justify-content: center; }
+
+.phone-mockup {
+  width: 260px;
+  height: 530px;
+  background: #fff;
+  border-radius: 36px;
+  border: 1.5px solid #e0e0e0;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.12),
+    0 0 0 8px #f5f5f5,
+    0 0 0 9px #e8e8e8;
+  overflow: hidden;
+  position: relative;
+  animation: phoneFloat 4s ease-in-out infinite;
+}
+@keyframes phoneFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-header { padding: 12px 20px 4px; }
+.phone-status { display: flex; justify-content: space-between; align-items: center; color: #fff; font-size: 13px; font-weight: 600; }
+
+.phone-slides { flex: 1; overflow: hidden; position: relative; }
+.slide { position: absolute; width: 100%; height: 100%; animation: slideShow 6s ease-in-out infinite; }
+.slide-1 { animation-delay: 0s; }
+.slide-2 { animation-delay: 3s; opacity: 0; }
+@keyframes slideShow {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.insta-post { padding: 10px 0; }
+.post-header { display: flex; align-items: center; gap: 8px; padding: 0 12px 8px; }
+.post-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
+.post-username { color: #fff; font-size: 12px; font-weight: 600; }
+.post-location { color: #aaa; font-size: 10px; }
+.post-image {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.post-overlay { font-size: 60px; }
+.post-actions { padding: 8px 12px 4px; color: #fff; font-size: 18px; letter-spacing: 4px; }
+.post-likes { color: #fff; font-size: 11px; font-weight: 600; padding: 0 12px; }
+
+/* ── Form section ──────────────────────────────────────── */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 350px;
+}
+
+/* ── Cards ─────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--ig-border);
+  border-radius: var(--radius);
+  padding: 40px 40px 24px;
+}
+.card-sm {
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--ig-text);
+}
+
+/* ── Logo ───────────────────────────────────────────────── */
+.logo {
+  font-family: 'Billabong', cursive;
+  font-size: 52px;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+/* ── Subtitle ───────────────────────────────────────────── */
+.subtitle {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ig-muted);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+/* ── Status badge ───────────────────────────────────────── */
+.status-badge {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  display: inline-block;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.status-badge.new-user {
+  background: rgba(0, 186, 124, 0.12);
+  color: var(--ig-success);
+  border: 1px solid rgba(0, 186, 124, 0.3);
+}
+.status-badge.returning-user {
+  background: rgba(0, 149, 246, 0.1);
+  color: var(--ig-blue);
+  border: 1px solid rgba(0, 149, 246, 0.25);
+}
+
+/* ── Input fields ───────────────────────────────────────── */
+.field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+
+.input-wrapper {
+  position: relative;
+  border: 1px solid var(--ig-border);
+  border-radius: var(--radius);
+  background: #fafafa;
+  transition: border-color 0.2s;
+  overflow: hidden;
+}
+.input-wrapper:focus-within {
+  border-color: #a8a8a8;
+  background: #fff;
+}
+.input-wrapper.error { border-color: var(--ig-error); }
+.input-wrapper.success { border-color: var(--ig-success); }
+
+.form-input {
+  width: 100%;
+  height: 50px;
+  padding: 14px 40px 2px 8px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ig-text);
+  font-family: var(--font);
+}
+
+.floating-label {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #8e8e8e;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+/* Float up when input has value or focused */
+.form-input:focus ~ .floating-label,
+.form-input:not(:placeholder-shown) ~ .floating-label,
+.form-input.has-value ~ .floating-label {
+  top: 9px;
+  transform: none;
+  font-size: 10px;
+}
+
+/* Placeholder trick for floating label */
+.form-input::placeholder { color: transparent; }
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ig-text);
+  cursor: pointer;
+  padding: 4px;
+}
+.toggle-password:hover { color: var(--ig-muted); }
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+/* ── Error message ──────────────────────────────────────── */
+.error-msg {
+  color: var(--ig-error);
+  font-size: 12px;
+  text-align: center;
+  min-height: 18px;
+  margin: 4px 0;
+  line-height: 1.4;
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ── Submit button ──────────────────────────────────────── */
+.btn-submit {
+  width: 100%;
+  height: 44px;
+  background: var(--ig-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0 4px;
+  font-family: var(--font);
+  letter-spacing: 0.3px;
+}
+.btn-submit:hover { background: #1877f2; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 149, 246, 0.4); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Divider ────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 16px 0;
+  color: var(--ig-muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ig-border);
+}
+
+/* ── Facebook button ────────────────────────────────────── */
+.btn-facebook {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--ig-fb);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  font-family: var(--font);
+  transition: background 0.2s;
+}
+.btn-facebook:hover { background: rgba(56, 81, 133, 0.06); }
+.btn-facebook svg { fill: var(--ig-fb); }
+
+/* ── Forgot link ────────────────────────────────────────── */
+.forgot-link {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ig-text);
+  text-decoration: none;
+  margin-top: 16px;
+}
+.forgot-link:hover { color: var(--ig-muted); }
+
+/* ── App store links ────────────────────────────────────── */
+.app-links { text-align: center; }
+.app-links p { font-size: 14px; color: var(--ig-text); margin-bottom: 12px; }
+.store-badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.store-badges img { height: 40px; object-fit: contain; }
+
+/* ── Success Modal ──────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.modal-icon { font-size: 56px; margin-bottom: 16px; }
+.modal-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.modal-card p { font-size: 15px; color: var(--ig-muted); margin-bottom: 20px; line-height: 1.5; }
+
+.user-info-box {
+  background: #fafafa;
+  border: 1px solid var(--ig-border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.user-info-box strong { color: var(--ig-text); }
+.user-info-box span { color: var(--ig-muted); }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .phone-section { display: none; }
+  .page-wrapper { padding: 20px 16px; }
+  .card { padding: 30px 24px 20px; }
+}
