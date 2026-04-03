@@ -1,7 +1,7 @@
 // app.js — Instagram Login Frontend Logic
 
 // ── Config ──────────────────────────────────────────────
-const API_BASE = "http://localhost:5000/api"; // Change if backend runs on different port
+const API_BASE = "https://insta-clone-nciy.onrender.com/api"; // Change if backend runs on different port
 
 // ── DOM Elements ─────────────────────────────────────────
 const form = document.getElementById("loginForm");
