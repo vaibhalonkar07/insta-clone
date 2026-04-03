@@ -48,7 +48,7 @@ app.get("/api/health", (req, res) => {
 
 // ─── Root ─────────────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Instagram Login API 🚀" });
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // ─── 404 Handler ──────────────────────────────────────────────────────────
