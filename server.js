@@ -1,22 +1,19 @@
-// server.js
-// Main Express server entry point
-
 const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path"); // ✅ FIX
 const connectDB = require("./config/db");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ─── Connect to MongoDB Atlas ──────────────────────────────────────────────
+// Connect DB
 connectDB();
 
-// ─── Middleware ────────────────────────────────────────────────────────────
-// Allow ALL origins (works with file:// and any localhost port)
+// Middleware
 app.use(cors({
   origin: "*",
   credentials: false,
@@ -25,7 +22,10 @@ app.use(cors({
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// ─── Request Logger (Development) ─────────────────────────────────────────
+// ✅ Serve frontend files
+app.use(express.static(path.join(__dirname)));
+
+// Logger
 if (process.env.NODE_ENV !== "production") {
   app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} | ${req.method} ${req.path}`);
@@ -33,47 +33,34 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-// ─── Routes ───────────────────────────────────────────────────────────────
+// Routes
 app.use("/api/auth", require("./routes/auth"));
 
-// ─── Health Check ─────────────────────────────────────────────────────────
+// Health
 app.get("/api/health", (req, res) => {
   res.json({
     status: "OK",
     message: "Instagram Login API is running",
-    timestamp: new Date().toISOString(),
-    database: "MongoDB Atlas",
   });
 });
 
-// ─── Root ─────────────────────────────────────────────────────────────────
+// Root → login page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// ─── 404 Handler ──────────────────────────────────────────────────────────
+// 404
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
 
-// ─── Global Error Handler ─────────────────────────────────────────────────
+// Error
 app.use((err, req, res, next) => {
-  console.error("Unhandled Error:", err);
-  res.status(500).json({
-    success: false,
-    message: "Internal server error",
-    error: process.env.NODE_ENV === "development" ? err.message : undefined,
-  });
+  console.error(err);
+  res.status(500).json({ success: false, message: "Server error" });
 });
 
-// ─── Start Server ─────────────────────────────────────────────────────────
+// Start
 app.listen(PORT, () => {
-  console.log("\n🚀 ══════════════════════════════════════");
-  console.log(`   Instagram Login Server Running`);
-  console.log(`   Port    : http://localhost:${PORT}`);
-  console.log(`   Health  : http://localhost:${PORT}/api/health`);
-  console.log(`   Auth    : http://localhost:${PORT}/api/auth/login`);
-  console.log("   ══════════════════════════════════════\n");
+  console.log(`🚀 Server running on ${PORT}`);
 });
-
-module.exports = app;
