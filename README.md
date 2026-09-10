@@ -1,5 +1,8 @@
+Live Demo - https://insta-clone-nciy.onrender.com/
+
 # 📸 Instagram-Style Login Page
 > Auto Sign-Up + Login with MongoDB Atlas
+
 
 A full-stack Instagram-style login page where **entering your credentials automatically creates an account if you're new, or logs you in if you return**.
 
